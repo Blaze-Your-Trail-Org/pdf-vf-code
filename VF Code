@@ -1,0 +1,306 @@
+<apex:page showHeader="false" renderAs="PDF" StandardController="outfunds__Funding_Request__c" applyHtmlTag="false" applyBodyTag="false" >
+
+<head>
+</head>
+  <head>
+      <apex:stylesheet value="{!$Resource.CSS_GWYL_GrantApplicationPDF}" />
+    <style> 
+  
+    #x{
+        page-break-after: after !important;
+        font-family: Arial Unicode MS;
+        font-size: 72px;
+    }
+    
+    #titlePage {
+        page-break-after: before !important;
+        font-family: Arial Unicode MS;
+        font-size: 72px;
+    }
+    
+    img {
+        margin-left: -10px !important;
+    }
+    
+    </style>
+    
+  </head>
+      <body>
+       <!-- <div id="x" style="page-break-after:always;">
+       
+         <div style="width:800px; height:1000px; background-image: url('{!$Resource.Image_Brand_A4TitlePage}'); background-repeat: no-repeat; background-size: cover !important;  ">
+            <br/><br/><br/><br/><br/><br/>
+            
+           
+            <img style="margin-left:80px; " src="{!$Resource.Image_Brand_SpeechEducationBook}" />
+            <br /><br/>
+            <h1 class="titleProgram"><apex:outputText value="{!outfunds__Funding_Request__c.outfunds__FundingProgram__r.Name}" /></h1>
+            <h1 class="titleGrantApp">Grant Application</h1>
+            <br/><br/>
+            <span class="submittedby">SUBMITTED BY</span>
+            <h1 class="titleProgram"><apex:outputText value="{!outfunds__Funding_Request__c.Organisation_Name__c}" /></h1>
+            
+
+        </div>  
+ 
+        </div>   --> 
+        <div id="organisation" style="page-break-after:always;">
+        <div class="clear">
+            <!--<h1>Organisation Details</h1>-->
+            <img style="width: 200px;" src="{!$Resource.Image_Logo_FullColourHorizontal}" />
+            <br/><br/><br/><br/><br/><br/><br/>
+            <h2 class="title"><apex:outputText value="{!outfunds__Funding_Request__c.outfunds__FundingProgram__r.Name}" /> Grant Application</h2>  
+        
+            <h4><apex:outputText value="{!outfunds__Funding_Request__c.Organisation_Name__c}" /></h4>
+            <br/>
+            <apex:outputText value="{!outfunds__Funding_Request__c.AddressStreet__c}" /><br/>
+            <apex:outputText value="{!outfunds__Funding_Request__c.Address_Suburb__c} {!outfunds__Funding_Request__c.Address_State__c} {!outfunds__Funding_Request__c.Address_Postcode__c}"/>
+            <br/><br/>
+             ABN&nbsp;<apex:outputText value="{!outfunds__Funding_Request__c.ABN__c}" /> <br/>
+             <apex:outputText value="{!outfunds__Funding_Request__c.Phone_Number__c}" /> <br/>
+             <apex:outputText value="{!outfunds__Funding_Request__c.Website__c}" /> <br/>
+             <hr />
+            <h3>Primary Measure</h3>
+            <apex:outputText escape="false" value="{!outfunds__Funding_Request__c.Measure_Primary__c}"/> <br />
+            <h3>Amount Requested</h3>
+            <apex:outputText value="{0, number, $##,##0.00}">
+                <apex:param value="{!outfunds__Funding_Request__c.outfunds__Requested_Amount__c}"/>
+                </apex:outputText> <br />
+             <h3>Organisation Description</h3>
+             <p><apex:outputText value="{!outfunds__Funding_Request__c.Organisation_Description__c}" /></p> 
+             
+                 
+            </div>    
+            
+             <div class="clear">
+             <hr />
+                 <h3>Promotional Media URL</h3>        
+                 <p><apex:outputText value="{! IF( ISBLANK(outfunds__Funding_Request__c.Promotional_Media_URL__c), 'Not Provided.', outfunds__Funding_Request__c.Promotional_Media_URL__c ) }" escape="false"/></p>
+                 
+                 <h3>Annual Report URL</h3>
+                 <p><apex:outputText value="{!IF(ISBLANK(outfunds__Funding_Request__c.Annual_Report_URL__c), 'Not provided. Opted to uploaded annual report.', outfunds__Funding_Request__c.Annual_Report_URL__c) }" escape="false"/></p>
+             
+                 <apex:outputPanel rendered="{!NOT(ISBLANK(outfunds__Funding_Request__c.Audited_Financials_URL__c))}">
+                     <h3>Audited Financials URL</h3>
+                     <p><apex:outputText value="{!outfunds__Funding_Request__c.Audited_Financials_URL__c}" escape="false"/></p>
+                 </apex:outputPanel>
+             </div>      
+        </div> 
+        
+        <div id="eligibility" style="page-break-after:always;">
+            <h1>Contact Information</h1>
+                <div class="left"> 
+                     <h3>Application Contact</h3>
+                     <apex:outputText value="{!outfunds__Funding_Request__c.Contact_First_Name__c} {!outfunds__Funding_Request__c.Contact_Last_Name__c}" /><br/>
+                     <apex:outputText value="{!outfunds__Funding_Request__c.Contact_Position__c}"  /><br/><br/>
+                     <apex:outputText value="{!outfunds__Funding_Request__c.Contact_Phone__c}"  /><br/>
+                     <apex:outputText value="{!outfunds__Funding_Request__c.Contact_Email__c}"  /><br/>
+                 </div>
+                 <div class="left"> 
+                     <h3>Application CEO / Signatory</h3>
+                     <apex:outputText value="{!outfunds__Funding_Request__c.CEO_First_Name__c} {!outfunds__Funding_Request__c.CEO_Last_Name__c}" /><br/>
+                     <apex:outputText value="{!outfunds__Funding_Request__c.CEO_Position__c}"  /><br/><br/>
+                     <apex:outputText value="{!outfunds__Funding_Request__c.CEO_Phone__c}"  /><br/>
+                     <apex:outputText value="{!outfunds__Funding_Request__c.CEO_Email__c}"  /><br/>
+                 </div> 
+             
+           <div class="clear">
+               <br/><br/>
+               <h1>Organisation Eligibility</h1>
+               <h3>What type of grant are you applying for?</h3>
+               <apex:outputText value="{!outfunds__Funding_Request__c.Funding_Type__c}"  />
+             
+               <h3>Are you endorsed as a Tax Concession Charity (TCC)?</h3>
+               <apex:outputText value="{!outfunds__Funding_Request__c.TCC_Status__c}"  />
+               <br/>
+               <h3>Are you endorsed as a Deductible Gift Recipient 1 (DGR1)?</h3>
+               <apex:outputText value="{!outfunds__Funding_Request__c.DGR1_Status__c}" />
+             
+               <h3>Is your charity registered with the Australian Charities and Not-for-profits Commission (ACNC) and is your registration up to date on the ACNC Register?</h3>
+               <apex:outputText value="{!outfunds__Funding_Request__c.ACNC_Up_to_date__c}"  /><br/>
+             
+               <h3>Are you submitting your application through an auspice organisation?</h3>
+               <apex:outputText value="{!IF(ISBLANK(outfunds__Funding_Request__c.Auspice_Organisation__c),'No','Yes')}"  />
+               
+               <apex:outputPanel rendered="{!NOT(ISBLANK(outfunds__Funding_Request__c.Auspice_Organisation__c))}">
+                    <h3>Auspice Organisation</h3>
+                    <apex:outputText value="{!outfunds__Funding_Request__c.Auspice_Organisation__c}"/><br />
+                    <apex:outputText value="{!outfunds__Funding_Request__c.Auspice_Street__c}"/><br/>
+                    <apex:outputText value="{!outfunds__Funding_Request__c.Auspice_Suburb__c} {!outfunds__Funding_Request__c.Auspice_State__c} {!outfunds__Funding_Request__c.Auspice_Postcode__c}"/><br/>
+                    <br/>
+                    <apex:outputText value="{!outfunds__Funding_Request__c.Auspice_ABN__c}"/>
+                    <br/>    
+                    <h3>Auspice Contact</h3>
+                    <apex:outputText value="{!outfunds__Funding_Request__c.Auspice_First_Name__c} {!outfunds__Funding_Request__c.Auspice_Last_Name__c}"/><br/>
+                    <apex:outputText value="{!outfunds__Funding_Request__c.Auspice_Position__c}"/><br/><br/>
+                    <apex:outputText value="{!outfunds__Funding_Request__c.Auspice_Phone__c}"/><br/>
+                    <apex:outputText value="{!outfunds__Funding_Request__c.Auspice_Email__c}"/><br/>
+                </apex:outputPanel>   
+            </div>
+        </div>
+         <div id="location" style="page-break-after:always;">
+        <h1>Grant Focus</h1>
+            <h3>Which of the Give Where You Live Foundation&#39;s key program areas does your application most relate to?</h3>
+            <p><apex:outputText escape="false" value="{!outfunds__Funding_Request__c.Funding_Sub_Program__c}"/></p>
+            
+            <h3>In which key location(s) will your project or service will be delivered in?</h3>
+            <p><apex:outputText value="{!SUBSTITUTE(JSENCODE(outfunds__Funding_Request__c.Regions__c), ';', ', ')}"/></p>
+
+            <h3>Are there any key suburbs within the selected location(s) that your project / service will be delivered in?</h3>
+             <p><apex:outputText value="{!IF( ISBLANK(outfunds__Funding_Request__c.Key_Regions__c), 'No', 'Yes')}" escape="false"/><br/><br/></p>
+            
+            
+            
+            <apex:outputPanel rendered="{!CASE(outfunds__Funding_Request__c.Regions__c,'Borough of Queenscliffe', 'false','true')}">
+                <u>Borough of Queenscliffe</u><br/>
+               <p><apex:outputText value="{!IF( ISBLANK(outfunds__Funding_Request__c.Suburbs_Borough_of_Queenscliffe__c), 'All suburbs', SUBSTITUTE(JSENCODE(outfunds__Funding_Request__c.Suburbs_Borough_of_Queenscliffe__c),';',',  ')) }" escape="false"/></p>
+                <br/>
+            </apex:outputPanel>
+           
+            <apex:outputPanel rendered="{!CASE(outfunds__Funding_Request__c.Regions__c,'City of Greater Geelong', 'false','true')}">
+                <u>City of Greater Geelong</u><br/>
+               <p><apex:outputText value="{!IF( ISBLANK(outfunds__Funding_Request__c.Suburbs_Greater_Geelong__c), 'All suburbs', SUBSTITUTE(outfunds__Funding_Request__c.Suburbs_Greater_Geelong__c,';',',  ')) }" escape="false"/></p>
+                <br/>
+                </apex:outputPanel>
+
+            
+            <apex:outputPanel rendered="{!CASE(outfunds__Funding_Request__c.Regions__c,'Colac Otway Shire', 'false','true')}">
+                <u>Colac Otway Shire</u><br/>
+               <p><apex:outputText value="{!IF( ISBLANK(outfunds__Funding_Request__c.Suburbs_Colac_Otway_Shire__c), 'All suburbs', SUBSTITUTE(outfunds__Funding_Request__c.Suburbs_Colac_Otway_Shire__c,';',',  ')) }" escape="false"/></p>
+                <br/>
+            </apex:outputPanel>
+            
+            <apex:outputPanel rendered="{!CASE(outfunds__Funding_Request__c.Regions__c,'Golden Plains Shire', 'false','true')}">
+               <u>Golden Plains Shire</u><br/>
+               <p><apex:outputText value="{!IF( ISBLANK(outfunds__Funding_Request__c.Suburbs_Golden_Plains_Shire__c), 'All suburbs', SUBSTITUTE(outfunds__Funding_Request__c.Suburbs_Golden_Plains_Shire__c,';',',  ')) }" escape="false"/></p>
+            <br/>
+            </apex:outputPanel>
+            
+            <apex:outputPanel rendered="{!CASE(outfunds__Funding_Request__c.Regions__c,'Surf Coast Shire', 'false','true')}">
+                <u>Surf Coast Shire</u><br/>
+               <p><apex:outputText value="{!IF( ISBLANK(outfunds__Funding_Request__c.Suburbs_Surf_Coast__c), 'All suburbs', SUBSTITUTE(outfunds__Funding_Request__c.Suburbs_Surf_Coast__c,';',',  ')) }" escape="false"/></p>
+                <br/>
+            </apex:outputPanel>
+        </div>
+        
+        <div id="summary" style="page-break-after:always;">
+        <h1>Application Summary</h1>
+            <h3>Please provide a summary of your grant request including what you will use the funds for and the change you expect to see from your project. This summary will be used by Give Where You Live Foundation in marketing material and will form the basis of your grant agreement if your application is successful.</h3>
+            <p><apex:outputText escape="false"  value="{!outfunds__Funding_Request__c.Summary__c}"/></p>
+            
+            <h3>Describe the community need your organisation has identified in the G21 region.</h3>
+            <p><apex:outputText escape="false" value="{!outfunds__Funding_Request__c.Community_Need__c}"/></p>
+            
+            <h3>Describe your project or activity, clearly stating how you will implement your project and what you want to do with the funds.</h3>
+            <p><apex:outputText escape="false" value="{!outfunds__Funding_Request__c.Project__c}"/></p>
+    
+            <h3>Who will benefit from your proposed project or activity?</h3>
+            <p><apex:outputText escape="false" value="{!outfunds__Funding_Request__c.Benefit__c}"/></p>
+        </div>
+        
+        <div id="implementation" style="page-break-after:always;">
+        <h1>Implementation</h1>
+            <h3>Describe who will implement your project or activity:</h3>
+            <p><apex:outputText escape="false"  value="{!outfunds__Funding_Request__c.Implementation__c}"/></p>
+
+            <h3>What partners will you work with and how will you work with them in the delivery of this project?</h3>
+            <p><apex:outputText escape="false" value="{!outfunds__Funding_Request__c.Partner_Organisations__c}"/></p>
+
+            <h3>Please outline any risks which may affect the completion of your project, and how will you mitigate against them:</h3>
+            <p><apex:outputText escape="false" value="{!outfunds__Funding_Request__c.Potential_Risks__c}"/></p>
+
+        </div>
+        
+        <div id="evalution" style="page-break-after:always;">
+        <h1>Evaluation and Impact</h1>
+            <h3>What short-term and long-term changes do you expect to see from your proposed project or activity (outcomes and impacts)?</h3>
+            <p><apex:outputText escape="false"  value="{!outfunds__Funding_Request__c.Expected_Outcomes__c}"/></p>
+            
+            <h3>Please select the PRIMARY measure you will report on from your funded project?</h3>
+            <apex:outputText escape="false" value="{!outfunds__Funding_Request__c.Measure_Primary__c}"/>
+            
+            <h3>How many people do you expect to assist related to your primary measure?</h3>
+            <apex:outputText escape="false"  value="{0, number, ###,###,##0}"><apex:param value="{!outfunds__Funding_Request__c.Number_People_Impacted_Directly__c}"/></apex:outputText>
+            
+            <h3>Please select any other measures you will report on from your funded project:</h3>
+             <apex:outputText escape="false" value="<li>{!SUBSTITUTE(JSENCODE(outfunds__Funding_Request__c.Measure_Secondary__c), ';', '</li><li>')}</li>"/>
+            
+            <h3>Please list the &#39;other&#39; measures you will report on:</h3>
+            <!--<apex:outputText escape="false" value="{!outfunds__Funding_Request__c.Other_Measure__c}"/>-->
+            <apex:outputText escape="false" value="{!IF(ISBLANK(outfunds__Funding_Request__c.Other_Measure__c),'No other measures listed.',outfunds__Funding_Request__c.Other_Measure__c)}"/>
+            
+            <h3>How will you capture and measure the difference made by your project or service (what tools/methods will you use)?</h3>
+            <p><apex:outputText escape="false" value="{!outfunds__Funding_Request__c.How_Impact_Captured__c}"/></p>
+        </div>
+        
+        <div id="finance">
+        <h1>Finance and Governance</h1>
+            <div class="left">
+                <h3>Grant amount requested?<br/>(max $40,000)</h3>
+                <h4><apex:outputText value="{0, number, $##,##0.00}">
+                <apex:param value="{!outfunds__Funding_Request__c.outfunds__Requested_Amount__c}"/>
+                </apex:outputText></h4>
+                <br/>
+                <br/>
+            </div>
+            <div class="left">
+                <h3>Budget Breakdown</h3>
+                <table>
+                    <tr>
+                        <td>Salaries</td>
+                        <td style="text-align: right !important;"><apex:outputText escape="false"  value="{0, number, $##,##0.00}"><apex:param value="{!outfunds__Funding_Request__c.Salaries__c}"/></apex:outputText></td>
+                    </tr>
+                    <tr>
+                        <td>Consultants and Professional Fees</td>
+                        <td style="text-align: right !important;"><apex:outputText escape="false"  value="{0, number, $##,##0.00}"><apex:param value="{!outfunds__Funding_Request__c.Consultant_Professional_Fees__c}"/></apex:outputText></td>
+                    </tr>
+                    <tr>
+                        <td>Travel</td>
+                        <td style="text-align: right !important;"><apex:outputText escape="false"  value="{0, number, $##,##0.00}"><apex:param value="{!outfunds__Funding_Request__c.Travel__c}"/></apex:outputText></td>
+                    </tr>
+                    <tr>
+                        <td>Minor Capital Works and Equipment</td>
+                        <td style="text-align: right !important;"><apex:outputText escape="false"  value="{0, number, $##,##0.00}"><apex:param value="{!outfunds__Funding_Request__c.Minor_Captical_Works_and_Equipment__c}"/></apex:outputText></td>
+                    </tr>
+                    <tr>
+                        <td>Food Items</td>
+                        <td style="text-align: right !important;"><apex:outputText escape="false"  value="{0, number, $##,##0.00}"><apex:param value="{!outfunds__Funding_Request__c.Food_Items__c}"/></apex:outputText></td>
+                    </tr>
+                    <tr>
+                        <td>Printing and Copying</td>
+                        <td style="text-align: right !important;"><apex:outputText escape="false"  value="{0, number, $##,##0.00}"><apex:param value="{!outfunds__Funding_Request__c.Printing_and_Copying__c}"/></apex:outputText></td>
+                    </tr>
+                    <tr>
+                        <td>Overheads</td>
+                        <td style="text-align: right !important;"><apex:outputText escape="false"  value="{0, number, $##,##0.00}"><apex:param value="{!outfunds__Funding_Request__c.Overheads__c}"/></apex:outputText></td>
+                    </tr>
+                    <tr>
+                        <td>Marketing</td>
+                        <td style="text-align: right !important;"><apex:outputText escape="false"  value="{0, number, $##,##0.00}"><apex:param value="{!outfunds__Funding_Request__c.Marketing__c}"/></apex:outputText></td>
+                    </tr>
+                    <tr>
+                        <td>Research and Evaluation</td>
+                        <td style="text-align: right !important;"><apex:outputText escape="false"  value="{0, number, $##,##0.00}"><apex:param value="{!outfunds__Funding_Request__c.Research_and_Evaluation__c}"/></apex:outputText></td>
+                    </tr>
+                    <tr>
+                        <td>Other</td>
+                        <td style="text-align: right !important;"><apex:outputText escape="false"  value="{0, number, $##,##0.00}"><apex:param value="{!outfunds__Funding_Request__c.Other_Costs__c}"/></apex:outputText></td>
+                    </tr>
+                    <tr>
+                        <td style="border-bottom: 4px solid #cccccc; font-weight: bold; font-family: sans-serif;">Total Expenses</td>
+                        <td style="text-align: right !important; border-bottom: 4px solid #cccccc; font-weight: bold; font-family: sans-serif;"><apex:outputText escape="false"  value="{0, number, $##,###,###.00}"><br/><apex:param value="{!outfunds__Funding_Request__c.Total_Expenses_Form__c}"/></apex:outputText></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="clear">
+                <h3>Please explain how you intend to spend the funds and any additional financial details that may be relevant to your grant request:</h3>
+                <p><apex:outputText escape="false" value="{!outfunds__Funding_Request__c.Fund_Expenditure__c}"/></p><br/>
+            </div>
+        </div>
+
+        
+    </body>
+ </apex:page>
+                                        
+ 	 
+
